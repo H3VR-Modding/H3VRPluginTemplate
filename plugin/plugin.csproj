@@ -1,20 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <!-- Plugin name, version, etc. -->
+  <!-- TODO: Change these values! -->
   <PropertyGroup>
-    <!-- Probably don't need to touch these -->
-    <TargetFramework>net35</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <IsPackable>false</IsPackable>
-
-    <!-- Plugin name, version, etc. -->
-    <!-- TODO: Change these values! -->
     <AssemblyName>your_name.mod_name</AssemblyName>
     <AssemblyTitle>BepInEx Plugin Title</AssemblyTitle>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
+  <!-- Probably don't need to touch these -->
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>false</IsPackable>
+    <PlatformTarget>x64</PlatformTarget>
+    <Optimize>true</Optimize>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+
+  <!-- Debug configuration overrides -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <!-- Project references -->
   <ItemGroup>
     <!-- Required to compile .NET Framerowk 3.5 libraries -->
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net35" Version="1.0.3">
@@ -34,4 +48,10 @@
     <PackageReference Include="H3VR.GameLibs" Version="0.105.6" />
   </ItemGroup>
 
+
+  <!-- When in debug mode, also build mono debugging symbols (Only available on Windows) -->
+  <Target Name="MonoDebugSymbols" AfterTargets="PostBuildEvent" Condition="'$(DebugType)' == 'full' AND '$(OS)' == 'Windows_NT'">
+    <Exec Command="echo Creating Mono debug symbols -> $(ProjectDir)$(OutDir)$(AssemblyName).dll.mdb" />
+    <Exec Command="$(ProjectDir)../tools/pdb2mdb.exe $(ProjectDir)$(OutDir)$(AssemblyName).dll" />
+  </Target>
 </Project>
