@@ -1,0 +1,1 @@
+# H3VR BepInEx Plugin Template

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Probably don't need to touch these -->
+    <TargetFramework>net35</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>false</IsPackable>
+
+    <!-- Plugin name, version, etc. -->
+    <!-- TODO: Change these values! -->
+    <AssemblyName>your_name.mod_name</AssemblyName>
+    <AssemblyTitle>BepInEx Plugin Title</AssemblyTitle>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Required to compile .NET Framerowk 3.5 libraries -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net35" Version="1.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <!-- Automatically generates a BepInEx plugin from the values at the top of this file -->
+    <PackageReference Include="BepInEx.AutoPlugin" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- References to Unity, BepInEx, and the publicized H3 libraries -->
+    <PackageReference Include="UnityEngine" Version="5.6.1" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.17" />
+    <PackageReference Include="H3VR.GameLibs" Version="0.105.6" />
+  </ItemGroup>
+
+</Project>
