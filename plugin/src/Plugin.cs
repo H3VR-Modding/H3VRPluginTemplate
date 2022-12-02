@@ -5,6 +5,7 @@ namespace YourName
 {
     // TODO: Change 'YourPlugin' to the name of your plugin
     [BepInAutoPlugin]
+    [BepInProcess("h3vr.exe")]
     public partial class YourPlugin : BaseUnityPlugin
     {
         // Your plugin class is a Unity MonoBehaviour that gets added to a global game object when the game starts
