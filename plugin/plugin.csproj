@@ -51,7 +51,6 @@
 
   <!-- When in debug mode, also build mono debugging symbols (Only available on Windows) -->
   <Target Name="MonoDebugSymbols" AfterTargets="PostBuildEvent" Condition="'$(DebugType)' == 'full' AND '$(OS)' == 'Windows_NT'">
-    <Exec Command="echo Creating Mono debug symbols -> $(ProjectDir)$(OutDir)$(AssemblyName).dll.mdb" />
     <Exec Command="$(ProjectDir)../tools/pdb2mdb.exe $(ProjectDir)$(OutDir)$(AssemblyName).dll" />
   </Target>
 </Project>
