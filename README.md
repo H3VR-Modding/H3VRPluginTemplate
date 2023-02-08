@@ -12,6 +12,7 @@ A new, simpler, and easy to use template for making BepInEx plugins for H3VR.
 ## Using your plugin
 1. After a successful build, your plugin should be output to `plugin/bin/[Debug|Release]/net35/your_name.mod_name.dll`.
 2. Copy this dll to your r2mm profile's `BepInEx/plugins` folder and it should load!
+3. When building in DEBUG mode, a `your_name.mod_name.dll.mdb` file will also be generated in the output folder. Copy this into your plugins folder as well for additional debugging details such as filenames and line numbers in stack traces.
 
 ## Extra TODOs:
 * If you are publishing your project on GitHub, you will likely want to replace this `README.md` file and the `LICENSE` file with those appropriate for your project. If you are unsure which license to choose you can visit https://choosealicense.com/ for more info, or just remove the license all together.
