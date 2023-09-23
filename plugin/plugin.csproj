@@ -37,7 +37,7 @@
     </PackageReference>
 
     <!-- Automatically generates a BepInEx plugin from the values at the top of this file -->
-    <PackageReference Include="BepInEx.AutoPlugin" Version="1.0.1">
+    <PackageReference Include="BepInEx.AutoPlugin" Version="1.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -45,7 +45,7 @@
     <!-- References to Unity, BepInEx, and the publicized H3 libraries -->
     <PackageReference Include="UnityEngine" Version="5.6.1" />
     <PackageReference Include="BepInEx.Core" Version="5.4.17" />
-    <PackageReference Include="H3VR.GameLibs" Version="0.105.6" />
+    <PackageReference Include="H3VR.GameLibs" Version="0.111.5" />
   </ItemGroup>
 
 
