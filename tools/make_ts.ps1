@@ -20,6 +20,7 @@ $PluginAuthor = (Select-Xml -Xml $ProjectXml -XPath "//Authors").Node.InnerText
 # Also try to find any additional files to include from the csproj file
 $ExtraFiles = (Select-Xml -Xml $ProjectXml -XPath "//CopyToOutputDirectory") |
                 Select-Object -ExpandProperty Node |
+                Where-Object { $_.InnerText -ne "Never" } |
                 Select-Object -ExpandProperty ParentNode |
                 Select-Object -ExpandProperty Update
 
