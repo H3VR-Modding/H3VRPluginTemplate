@@ -1,0 +1,10 @@
+{
+    "name": "{{NAME}}",
+    "author": "{{AUTHOR}}",
+    "version_number": "{{VERSION}}",
+    "description": "{{DESCRIPTION}}",
+    "website_url": "{{URL}}",
+    "dependencies": [
+        "BepInEx-BepInExPack_H3VR-5.4.1700"
+    ]
+}
