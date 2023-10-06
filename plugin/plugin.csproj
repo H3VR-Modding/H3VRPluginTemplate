@@ -13,7 +13,7 @@
     <!-- Probably don't need to touch these -->
     <PropertyGroup>
         <TargetFramework>net35</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <IsPackable>false</IsPackable>
