@@ -1,15 +1,15 @@
 # Declare a param for the dotnet configuration name (typically Debug or Release)
 # Run script with "-Configuration Debug" for Debug or anything else you want
 param (
-    [string]$Configuration = "Release",
-    [string]$OutputPath = ""
+    [string]$ProjectFilePath,
+    [string]$OutputPath
 )
 
 # Get the path to the project root
 $RootDir = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
 # Load the csproj file to pull info from
-$ProjectXml = [xml](Get-Content (Join-Path $RootDir "plugin/plugin.csproj"))
+$ProjectXml = [xml](Get-Content $ProjectFilePath)
 $PluginName = (Select-Xml -Xml $ProjectXml -XPath "//AssemblyName").Node.InnerText
 $PluginTitle = (Select-Xml -Xml $ProjectXml -XPath "//AssemblyTitle").Node.InnerText
 $PluginVersion = (Select-Xml -Xml $ProjectXml -XPath "//Version").Node.InnerText
@@ -34,8 +34,8 @@ Copy-Item (Join-Path $RootDir "manifest.json") $TempDir
 Copy-Item (Join-Path $RootDir "icon.png") $TempDir
 Copy-Item (Join-Path $RootDir "README.md") $TempDir
 Copy-Item (Join-Path $RootDir "LICENSE") $TempDir -ErrorAction Ignore
-Copy-Item (Join-Path $RootDir "plugin/bin/${Configuration}/net35/${PluginName}.dll") $TempDir
-Copy-Item (Join-Path $RootDir "plugin/bin/${Configuration}/net35/${PluginName}.dll.mdb") $TempDir -ErrorAction Ignore
+Copy-Item "${OutputPath}${PluginName}.dll" $TempDir
+Copy-Item "${OutputPath}${PluginName}.dll.mdb" $TempDir -ErrorAction Ignore
 
 # Copy all our extra files into the output dir
 foreach ($ExtraFile in $ExtraFiles)
@@ -44,7 +44,7 @@ foreach ($ExtraFile in $ExtraFiles)
     $DestinationFile = Join-Path $TempDir $ExtraFile
     $DestinationDirectory = Split-Path -Parent $DestinationFile
     if (!(Test-Path $DestinationDirectory)) { New-Item -ItemType Directory -Path $DestinationDirectory | Out-Null }
-    Copy-Item (Join-Path $RootDir "plugin/bin/${Configuration}/net35/${ExtraFile}") $DestinationFile
+    Copy-Item "${OutputPath}${ExtraFile}" $DestinationFile
 }
 
 # Replace values in the manifest with our project info
@@ -57,12 +57,8 @@ $ManifestContent = $ManifestContent.replace("{{URL}}", $PluginUrl)
 $ManifestContent = $ManifestContent.replace("{{AUTHOR}}", $PluginAuthor)
 Set-Content $ManifestPath $ManifestContent
 
-# Make sure we got some path to output into
-if ($OutputPath -eq "") {
-    $OutputPath = "${PluginName}.zip"
-}
-
 # Make a zip archive from the folder
+$OutputPath = Join-Path $OutputPath "${PluginName}.zip"
 Compress-Archive -Path "${TempDir}\*" -DestinationPath $OutputPath -Force
 
 # Delete the temp folder and we're done!

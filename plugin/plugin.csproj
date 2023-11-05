@@ -58,7 +58,7 @@
 
     <!-- Build a thunderstore zip after a build (Only available on Windows) -->
     <Target Name="PackageThunderstore" AfterTargets="MonoDebugSymbols" Condition="'$(OS)' == 'Windows_NT'">
-        <Exec Command="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { ../tools/make_ts.ps1 -Configuration $(Configuration) -OutputPath $(ProjectDir)$(OutDir)$(AssemblyName).zip } &quot;" LogStandardErrorAsError="True" ContinueOnError="False"/>
+        <Exec Command="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { ../tools/make_ts.ps1 -ProjectFilePath $(ProjectPath) -OutputPath $(ProjectDir)$(OutDir) } &quot;" LogStandardErrorAsError="True" ContinueOnError="False"/>
     </Target>
 
     <!-- The 'clean' command won't cleanup stuff we make so do that here -->
